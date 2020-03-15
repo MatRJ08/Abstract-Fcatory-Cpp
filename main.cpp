@@ -1,5 +1,4 @@
 #include <iostream>
-#define LINUX
 
 using namespace std;
 
@@ -9,33 +8,33 @@ using namespace std;
  * work with products through this interface, so it
  * should be sufficient to use all products.
  */
-class Widget {
+class Disco {
 public:
-    virtual void draw() = 0;
+    virtual void imprimir() = 0;
 };
 
 /**
  * Concrete product family 1.
  */
-class LinuxButton : public Widget {
+class DvdSimple : public Disco {
 public:
-    void draw() { cout << "LinuxButton\n"; }
+    void imprimir() { cout << "Disco DVD de capa Simple\n"; }
 };
-class LinuxMenu : public Widget {
+class DvdDoble : public Disco {
 public:
-    void draw() { cout << "LinuxMenu\n"; }
+    void imprimir() { cout << "Disco DVD de capa Doble\n"; }
 };
 
 /**
  * Concrete product family 2.
  */
-class WindowsButton : public Widget {
+class BluRaySimple : public Disco {
 public:
-    void draw() { cout << "WindowsButton\n"; }
+    void imprimir() { cout << "Disco BluRay de capa Simple\n"; }
 };
-class WindowsMenu : public Widget {
+class BluRayDoble : public Disco {
 public:
-    void draw() { cout << "WindowsMenu\n"; }
+    void imprimir() { cout << "Disco BluRay de capa Doble\n"; }
 };
 
 /**
@@ -44,8 +43,8 @@ public:
  */
 class Factory {
 public:
-    virtual Widget *create_button() = 0;
-    virtual Widget *create_menu() = 0;
+    virtual Disco *crear_simple() = 0;
+    virtual Disco *crear_doble() = 0;
 };
 
 /**
@@ -53,13 +52,13 @@ public:
  * family. It creates all possible products of
  * one kind.
  */
-class LinuxFactory : public Factory {
+class FactoryDvd : public Factory {
 public:
-    Widget *create_button() {
-        return new LinuxButton;
+    Disco *crear_simple() {
+        return new DvdSimple;
     }
-    Widget *create_menu() {
-        return new LinuxMenu;
+    Disco *crear_doble() {
+        return new DvdDoble;
     }
 };
 
@@ -67,13 +66,13 @@ public:
  * Concrete factory creates concrete products, but
  * returns them as abstract.
  */
-class WindowsFactory : public Factory {
+class FactoryBluRay : public Factory {
 public:
-    Widget *create_button() {
-        return new WindowsButton;
+    Disco *crear_simple() {
+        return new BluRaySimple;
     }
-    Widget *create_menu() {
-        return new WindowsMenu;
+    Disco *crear_doble() {
+        return new BluRayDoble;
     }
 };
 
@@ -89,38 +88,23 @@ public:
  * products either, since abstract factory methods
  * returns abstract products.
  */
-class Client {
+class Cliente {
 private:
     Factory *factory;
 
 public:
-    Client(Factory *f) {
+    Cliente(Factory *f) {
         factory = f;
     }
 
-    void draw() {
-        Widget *w = factory->create_button();
-        w->draw();
-        display_window_one();
-        display_window_two();
-    }
 
-    void display_window_one() {
-        Widget *w[] = {
-                factory->create_button(),
-                factory->create_menu()
-        };
-        w[0]->draw();
-        w[1]->draw();
+    void crear_disco_simple() {
+        Disco *w = factory->crear_simple();
+        w->imprimir();
     }
-
-    void display_window_two() {
-        Widget *w[] = {
-                factory->create_menu(),
-                factory->create_button()
-        };
-        w[0]->draw();
-        w[1]->draw();
+    void crear_disco_doble() {
+        Disco *w = factory->crear_doble();
+        w->imprimir();
     }
 };
 
@@ -131,13 +115,10 @@ public:
  */
 int main() {
     Factory *factory;
-#ifdef LINUX
-    factory = new WindowsFactory;
-#else // WINDOWS
-    factory = new WindowsFactory;
-#endif
+    factory = new FactoryDvd;
 
-    Client *c = new Client(factory);
-    c->draw();
+    Cliente *c = new Cliente(factory);
+    c->crear_disco_simple();
+    c->crear_disco_doble();
 }
 
