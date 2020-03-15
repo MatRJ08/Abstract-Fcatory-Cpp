@@ -116,60 +116,61 @@ public:
  * happening somewhere in program initialization code.
  */
 int main() {
-    Factory *factory;
-    int opc;
-    cout<<"--------------------------Menu--------------------------\n";
-    cout<<"--------Seleccione que tipo de Disco desea crear--------\n";
-    cout<<"1. DVD\n";
-    cout<<"2. BluRay\n";
-    cin>>opc;
-    switch(opc){
-        case 1:{
+    bool menu = true;
+    while(menu) {
+        Factory *factory;
+        int opc;
+        cout << "--------------------------Menu--------------------------\n";
+        cout << "--------Seleccione que tipo de Disco desea crear--------\n";
+        cout << "1. DVD capa simple\n";
+        cout << "2. DVD capa doble\n";
+        cout << "3. BluRay capa simple\n";
+        cout << "4. BluRay capa doble\n";
+        cout << "5. Salir\n";
+        cin >> opc;
+        switch (opc) {
+            case 1: {
 
-            factory = new FactoryDvd;
-            Cliente *c = new Cliente(factory);
+                factory = new FactoryDvd;
+                Cliente *c = new Cliente(factory);
+                c->crear_disco_simple();
+                break;
 
-            cout<<"------------------------Menu DVD------------------------\n";
-            cout<<"---------Seleccione que tipo de Capa desea usar---------\n";
-            cout<<"1. Doble\n";
-            cout<<"2. Simple\n";
-            cin>>opc;
-            switch(opc){
-                case 1:{
-                    c->crear_disco_doble();
-                    break;
-                }
-                case 2: {
-                    c->crear_disco_simple();
-                    break;
-                }
+
             }
-            break;
-        }
-        case 2:{
 
-            factory = new FactoryBluRay;
-            Cliente *c = new Cliente(factory);
+            case 2: {
 
-            cout<<"----------------------Menu BlueRay--------------------\n";
-            cout<<"---------Seleccione que tipo de Capa desea usar---------\n";
-            cout<<"1. Doble\n";
-            cout<<"2. Simple\n";
-            cin>>opc;
-            switch(opc){
-                case 1:{
-                    c->crear_disco_doble();
-                    break;
-                }
-                case 2: {
-                    c->crear_disco_simple();
-                    break;
-                }
+                factory = new FactoryDvd;
+                Cliente *c = new Cliente(factory);
+                c->crear_disco_doble();
+                break;
             }
-            break;
+
+            case 3: {
+
+                factory = new FactoryBluRay;
+                Cliente *c = new Cliente(factory);
+                c->crear_disco_simple();
+                break;
+
+
+            }
+
+            case 4: {
+
+                factory = new FactoryBluRay;
+                Cliente *c = new Cliente(factory);
+                c->crear_disco_doble();
+                break;
+            }
+
+            case 5:{
+                menu = false;
+            }
+
         }
     }
-
     return 0;
 }
 
