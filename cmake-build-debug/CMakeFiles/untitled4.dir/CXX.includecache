@@ -9,4 +9,6 @@
 /home/keos/CLionProjects/Abstract Fcatory Cpp/main.cpp
 iostream
 -
+stdlib.h
+-
 

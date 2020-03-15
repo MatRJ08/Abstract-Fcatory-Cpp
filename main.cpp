@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#define clear() printf("\033[H\033[J")
 
 using namespace std;
 
@@ -115,10 +117,59 @@ public:
  */
 int main() {
     Factory *factory;
-    factory = new FactoryDvd;
+    int opc;
+    cout<<"--------------------------Menu--------------------------\n";
+    cout<<"--------Seleccione que tipo de Disco desea crear--------\n";
+    cout<<"1. DVD\n";
+    cout<<"2. BluRay\n";
+    cin>>opc;
+    switch(opc){
+        case 1:{
 
-    Cliente *c = new Cliente(factory);
-    c->crear_disco_simple();
-    c->crear_disco_doble();
+            factory = new FactoryDvd;
+            Cliente *c = new Cliente(factory);
+
+            cout<<"------------------------Menu DVD------------------------\n";
+            cout<<"---------Seleccione que tipo de Capa desea usar---------\n";
+            cout<<"1. Doble\n";
+            cout<<"2. Simple\n";
+            cin>>opc;
+            switch(opc){
+                case 1:{
+                    c->crear_disco_doble();
+                    break;
+                }
+                case 2: {
+                    c->crear_disco_simple();
+                    break;
+                }
+            }
+            break;
+        }
+        case 2:{
+
+            factory = new FactoryBluRay;
+            Cliente *c = new Cliente(factory);
+
+            cout<<"----------------------Menu BlueRay--------------------\n";
+            cout<<"---------Seleccione que tipo de Capa desea usar---------\n";
+            cout<<"1. Doble\n";
+            cout<<"2. Simple\n";
+            cin>>opc;
+            switch(opc){
+                case 1:{
+                    c->crear_disco_doble();
+                    break;
+                }
+                case 2: {
+                    c->crear_disco_simple();
+                    break;
+                }
+            }
+            break;
+        }
+    }
+
+    return 0;
 }
 
