@@ -5,10 +5,7 @@
 using namespace std;
 
 /**
- * Abstract base product. It should define an interface
- * which will be common to all products. Clients will
- * work with products through this interface, so it
- * should be sufficient to use all products.
+ * Producto abstracto base para el Abstract Factory
  */
 class Disco {
 public:
@@ -16,19 +13,21 @@ public:
 };
 
 /**
- * Concrete product family 1.
+ * Productos Concretos tipo DVD
  */
 class DvdSimple : public Disco {
 public:
     void imprimir() { cout << "Disco DVD de capa Simple\n"; }
 };
+
 class DvdDoble : public Disco {
 public:
     void imprimir() { cout << "Disco DVD de capa Doble\n"; }
 };
 
+
 /**
- * Concrete product family 2.
+ * Productos concretos tipo BluRay
  */
 class BluRaySimple : public Disco {
 public:
@@ -40,8 +39,7 @@ public:
 };
 
 /**
- * Abstract factory defines methods to create all
- * related products.
+ * Definicion de metodos del Abstract Factory
  */
 class Factory {
 public:
@@ -50,9 +48,7 @@ public:
 };
 
 /**
- * Each concrete factory corresponds to one product
- * family. It creates all possible products of
- * one kind.
+ * Definicion de metodos para la fabrica DVD
  */
 class FactoryDvd : public Factory {
 public:
@@ -65,8 +61,7 @@ public:
 };
 
 /**
- * Concrete factory creates concrete products, but
- * returns them as abstract.
+ * Definicion de metodos para la Fabrica BlueRay
  */
 class FactoryBluRay : public Factory {
 public:
@@ -79,16 +74,7 @@ public:
 };
 
 /**
- * Client receives a factory object from its creator.
- *
- * All clients work with factories through abstract
- * interface. They don't know concrete classes of
- * factories. Because of this, you can interchange
- * concrete factories without breaking clients.
- *
- * Clients don't know the concrete classes of created
- * products either, since abstract factory methods
- * returns abstract products.
+ * Clase cliente. Se le proveen metodos para poder solicitar discos simples o dobles
  */
 class Cliente {
 private:
@@ -110,11 +96,7 @@ public:
     }
 };
 
-/**
- * Now the nasty switch statement is needed only once to
- * pick and create a proper factory. Usually that's
- * happening somewhere in program initialization code.
- */
+/**Interfaz de usuario*/
 int main() {
     bool menu = true;
     while(menu) {
