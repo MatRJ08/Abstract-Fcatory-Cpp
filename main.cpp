@@ -52,11 +52,17 @@ public:
  */
 class FactoryDvd : public Factory {
 public:
-    Disco *crear_simple() {
-        return new DvdSimple;
-    }
+    /**
+     * @return Disco DVD de cara simple
+     */
     Disco *crear_doble() {
         return new DvdDoble;
+    }
+    /**
+    * @return Disco DVD de cara doble
+    */
+    Disco *crear_simple() {
+        return new DvdSimple;
     }
 };
 
@@ -65,9 +71,15 @@ public:
  */
 class FactoryBluRay : public Factory {
 public:
+    /**
+     * @return disco Bluray e cara simple
+     */
     Disco *crear_simple() {
         return new BluRaySimple;
     }
+    /**
+     * @return disco Bluray e cara doble
+     */
     Disco *crear_doble() {
         return new BluRayDoble;
     }
@@ -85,13 +97,19 @@ public:
         factory = f;
     }
 
-
-    void crear_disco_simple() {
-        Disco *w = factory->crear_simple();
-        w->imprimir();
-    }
+    /**
+     * Solicita un dico de capa simple
+     */
     void crear_disco_doble() {
         Disco *w = factory->crear_doble();
+        w->imprimir();
+    }
+
+    /**
+     * Solicita un dico de capa doble
+     */
+    void crear_disco_simple() {
+        Disco *w = factory->crear_simple();
         w->imprimir();
     }
 };
